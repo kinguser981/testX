@@ -3,10 +3,10 @@ name: Gdrive-to-link
 on:
   workflow_dispatch:
     inputs:
-      DEVICE_IMG:
+      FILE_LINK:
         description: 'file link'
         required: true
-        default: '1FpKs2CQEM0FOLgBhfobEEDzo-FYX_7_3'
+        default: 'https://drive.google.com/file/d/1g8DVDAzv_qnshNMK7V8WByWJRqi5ekTw/view?usp=sharing'
 
 jobs:
   build:
@@ -21,11 +21,12 @@ jobs:
     - name: Getting tools ready 
       run: |
         pip install gdown 
+        python3 convertor.py ${{ github.event.inputs.FILE_LINK }}
     
     - name: Downloading file from Gdrive
       run: |
         mkdir Gdrive && cd Gdrive
-        gdown https://drive.google.com/uc?id=${{ github.event.inputs.DEVICE_IMG }}
+        gdown https://drive.google.com/uc?id=${{ env.FILE_ID }}
         
     - name: Set Build Date 
       run: |
