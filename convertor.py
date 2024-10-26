@@ -25,6 +25,6 @@ if __name__ == "__main__":
   file_id = extract_file_id(url)
 
   if file_id:
-    print(f'FILE_ID={file_id} >> $GITHUB_ENV')
+    print(f'echo "FILE_ID={file_id}" >> $GITHUB_ENV')
   else:
     print("Invalid Google Drive URL")
