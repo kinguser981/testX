@@ -6,7 +6,7 @@ on:
       DEVICE_IMG:
         description: 'file link'
         required: true
-        default: '1DPcYGBobGnDYWloDrKFbbNIJbq0wHed2'
+        default: '1FpKs2CQEM0FOLgBhfobEEDzo-FYX_7_3'
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Gdrive/*.*
+          Gdrive/*.zip
         name: your file // ${{ env.BUILD_DATE }}
         tag_name: ${{ github.run_id }}
         body: |
