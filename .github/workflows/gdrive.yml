@@ -21,7 +21,8 @@ jobs:
     - name: Getting tools ready 
       run: |
         pip install gdown 
-        python3 convertor.py ${{ github.event.inputs.FILE_LINK }} > "FILE_ID" >> $GITHUB_ENV
+        python3 convertor.py ${{ github.event.inputs.FILE_LINK }} > link.txt
+        echo "FILE_ID=$(<link.txt)" >> $GITHUB_ENV
     
     - name: Downloading file from Gdrive
       run: |
