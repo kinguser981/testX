@@ -1,4 +1,4 @@
-name: Gdrive-to-link
+name: Gdrive-file-to-link
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       FILE_LINK:
         description: 'file link'
         required: true
-        default: 'https://drive.google.com/file/d/1g8DVDAzv_qnshNMK7V8WByWJRqi5ekTw/view?usp=sharing'
+        default: 'https://drive.google.com/file/d/1FpKs2CQEM0FOLgBhfobEEDzo-FYX_7_3/view?usp=sharing'
 
 jobs:
   build:
@@ -28,14 +28,17 @@ jobs:
       run: |
         mkdir Gdrive && cd Gdrive
         gdown https://drive.google.com/uc?id=${{ env.FILE_ID }}
-
+        for filename in $(ls)
+        do
+        echo "FILE_NAME=$filename" >> $GITHUB_ENV
+        done;
     - name: Check file size
       run: |
         if [[ $(stat -c '%s' *.*) -gt 2147483648 ]]; then
-        echo "File is smaller than or equal to 2GB"
-        else
         echo "The File is larger than 2GB"
         cd Exit
+        else
+        echo "File is smaller than or equal to 2GB"
         fi
     - name: Set Build Date 
       run: |
@@ -46,6 +49,6 @@ jobs:
       with:
         files: |
           Gdrive/*.*
-        name: your file // ${{ env.BUILD_DATE }}
-        tag_name: ${{ github.run_id }}
+        name: ${{ env.FILE_NAME }}
+        tag_name: ${{ github.run_id }} // ${{ env.BUILD_DATE }}
         body: |
