@@ -22,7 +22,7 @@ jobs:
       run: |
         pip install gdown 
     
-    - name: Downloading file
+    - name: Downloading file from Gdrive
       run: |
         mkdir Gdrive && cd Gdrive
         gdown https://drive.google.com/uc?id=${{ github.event.inputs.DEVICE_IMG }}
@@ -31,11 +31,11 @@ jobs:
       run: |
         echo "BUILD_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
         
-    - name: Release
+    - name: Upload to Github
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Gdrive/*.zip
+          Gdrive/*.*
         name: your file // ${{ env.BUILD_DATE }}
         tag_name: ${{ github.run_id }}
         body: |
