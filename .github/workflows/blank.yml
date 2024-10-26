@@ -1,4 +1,4 @@
-name: gdrive-to-link
+name: Gdrive-to-link
 
 on:
   workflow_dispatch:
@@ -6,11 +6,11 @@ on:
       DEVICE_IMG:
         description: 'file link'
         required: true
-        default: 'https://dumps.tadiphone.dev/dumps/samsung/a05s/-/raw/a05snsdxx-user-14-UP1A.231005.007-A057FXXS5CXH9-release-keys/recovery.img'
+        default: '1DPcYGBobGnDYWloDrKFbbNIJbq0wHed2'
 
 jobs:
   build:
-    name: Device Tree Generator by ${{ github.actor }}
+    name: Gdrive downloader by ${{ github.actor }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -30,7 +30,6 @@ jobs:
         echo "BUILD_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
         
     - name: Release
-      if: github.event.inputs.RELEASE_FILE == 'true'
       uses: softprops/action-gh-release@v1
       with:
         files: |
